@@ -8,7 +8,8 @@ fn main() {
 
     // unwrap_or_else extracts OK value  and helps to define non panic errors
     let config = Config::new(&args).unwrap_or_else(|err| {
-        println!("Error parsing the arguments: {}", err);
+        // this will send error to standard error stream
+        eprintln!("Error parsing the arguments: {}", err);
         process::exit(1);
     });
     println!(
@@ -16,7 +17,7 @@ fn main() {
         config.query, config.filename
     );
     if let Err(e) = minigrep::run(config)  {
-        println!("Application error: {}", e);
+        eprintln!("Application error: {}", e);
         process::exit(1);
     }
     
